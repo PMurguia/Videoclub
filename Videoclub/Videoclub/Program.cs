@@ -18,35 +18,8 @@ namespace Videoclub
 
         static void Main(string[] args)
         {
-            Menu();     
+            Menu.FirstMenu();
+            Console.ReadLine();
         }
-
-        public static void Menu()
-        {
-            const int LOGIN = 1, REGISTER = 2, EXIT = 3;
-            int option;
-            do
-            {
-                Console.WriteLine("Elija una opción: ");
-                Console.WriteLine("1. Login");
-                Console.WriteLine("2. Registrarse");
-                Console.WriteLine("3. Salir");
-                option = Int32.Parse(Console.ReadLine());
-
-                switch (option)
-                {
-                    case LOGIN:
-                        break;
-
-                    case REGISTER:
-                        Register();
-                        
-                        break;
-                }
-            } while (option != EXIT);
-        }
-        
-
-        
     }
 }
