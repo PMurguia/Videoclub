@@ -19,6 +19,7 @@ namespace Videoclub
         public static void LoginOptions()
         {
             conexion.Close();
+            
 
             int option;
             const int CATALOG = 1, RENT = 2, MYRENTINGS = 3, LOGOUT = 4;
@@ -54,9 +55,11 @@ namespace Videoclub
 
         public static void Catalog()
         {
-            List<Peliculas> catalogo = new List<Peliculas>();
-
+            List<Peliculas> catalogo = new List<Peliculas>(); 
+            
             conexion.Open();
+
+            //Edad
             cadena = "SELECT * FROM PELICULAS";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
@@ -73,6 +76,8 @@ namespace Videoclub
 
         public static void Rent()
         {
+            Console.WriteLine("¿Qué película quieres alquilar? ");
+
 
         }
 

@@ -17,7 +17,8 @@ namespace Videoclub
     static SqlCommand comando;
     static SqlDataReader registros;
 
-        private string pelicula;
+        private int rentId;
+        private int peliculaId;
         private string usuario;
         private DateTime fechaRent;
         private DateTime fechaDev;
@@ -27,17 +28,22 @@ namespace Videoclub
 
         }
 
-        public Alquiler(string pelicula, string usuario, DateTime fechaRent, DateTime fechaDev)
+        public Alquiler(int rentId,int peliculaId, string usuario, DateTime fechaRent, DateTime fechaDev)
         {
-            this.pelicula = pelicula;
+            this.rentId = rentId;
+            this.peliculaId = peliculaId;
             this.usuario = usuario;
             this.fechaRent = fechaRent;
             this.fechaDev = fechaDev;
         }
 
-        public string GetPelicula()
+        public int GetRentId()
         {
-            return pelicula;
+            return rentId;
+        }
+        public int GetPeliculaId()
+        {
+            return peliculaId;
         }
         public string GetUsuario()
         {
@@ -52,9 +58,13 @@ namespace Videoclub
             return fechaDev;
         }
 
-        public void SetPelicula(string pelicula)
+        public void SetRentId(int rentId)
         {
-            this.pelicula = pelicula;
+            this.rentId = rentId;
+        }
+        public void SetPeliculaId(int peliculaId)
+        {
+            this.peliculaId = peliculaId;
         }
         public void SetUsuario(string usuario)
         {
@@ -69,7 +79,14 @@ namespace Videoclub
             this.fechaDev = fechaDev;
         }
 
+        public static void Rent()
+        {
+            Console.WriteLine("¿Qué película desea alquilar? ");
+            int option = Int32.Parse(Console.ReadLine());
 
+            conexion.Open();
+            cadena="SELECT NOMBRE FROM PELICULAS WHERE ALQUILAD
+        }
 
 
 

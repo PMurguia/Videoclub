@@ -29,10 +29,10 @@ namespace Videoclub
                     switch (option)
                     {
                         case LOGIN:
-                            Login();
+                            Cliente.Login();
                             break;
                         case REGISTER:
-                            Register();
+                            Cliente.Register();
                             break;
                         case SALIR:
                             Console.WriteLine("Gracias por visitarnos");
@@ -41,55 +41,16 @@ namespace Videoclub
                 }
             } while (option != SALIR);
         }
-        public static void Register()
+      
+        public static int Edad(string username)
         {
-            Console.WriteLine("Bienvenido al registro de nuevo usuario. Por favor, introduce los siguientes datos: ");
-            Console.WriteLine("Nombre: ");
-            string nombre = Console.ReadLine();
-            Console.WriteLine("Apellido: ");
-            string apellido = Console.ReadLine();
-            Console.WriteLine("Día de nacimiento: ");
-            int diaNac = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Mes de nacimiento: ");
-            int mesNac = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Año de nacimiento: ");
-            int yearNac = Int32.Parse(Console.ReadLine());
-            DateTime fechaNac = new DateTime(yearNac, mesNac, diaNac);
-            Console.WriteLine("Nombre de usuario: ");
-            string username = Console.ReadLine();
-            Console.WriteLine("Contraseña: ");
-            string password = Console.ReadLine();
-            Console.WriteLine("Email: ");
-            string email = Console.ReadLine();
-            Console.WriteLine("Teléfono: ");
-            long telephone =Int32.Parse(Console.ReadLine());
-
-            //Esto es el objeto cliente
-            Cliente c = new Cliente(nombre, apellido, fechaNac, username, password, email, telephone);
-            c.Insert();
-        }
-        public static void Login()
-        {
-            string username, password;
-
-            Console.WriteLine("Introduce el nombre de usuario: ");
-            username = Console.ReadLine();
-            Console.WriteLine("Introduce la contraseña: ");
-            password = Console.ReadLine();
-
+            
             conexion.Open();
-            cadena = "SELECT NOMBRE_USUARIO FROM CLIENTE WHERE nombre_usuario LIKE '" + username + "' AND CONTRASENIA LIKE '" + password + "'";
+            cadena = "SELECT FECHA_NACIMIENTO FROM CLIENTE WHERE USERNAME = '" + username + "'";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
-
-            if (!registros.Read())
-            {
-                Console.WriteLine("Usuario o contraseña incorrectos. Por favor, introduzca una contraseña o nombre de usuario válidos. ");
-            }
-            else
-            {
-                Submenu.LoginOptions();
-            }
         }
+
+    
     }
 }
