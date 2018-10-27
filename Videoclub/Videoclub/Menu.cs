@@ -62,7 +62,7 @@ namespace Videoclub
             Console.WriteLine("Email: ");
             string email = Console.ReadLine();
             Console.WriteLine("Teléfono: ");
-            long telephone = Int64.Parse(Console.ReadLine());
+            long telephone =Int32.Parse(Console.ReadLine());
 
             //Esto es el objeto cliente
             Cliente c = new Cliente(nombre, apellido, fechaNac, username, password, email, telephone);

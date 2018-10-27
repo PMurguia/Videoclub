@@ -35,25 +35,51 @@ namespace Videoclub
                         case CATALOG:
                             Catalog();
                             break;
+
+                        case RENT:
+                            Rent();
+                            break;
+
+                        case MYRENTINGS:
+                            MyRentings();
+                            break;
+
+                        case LOGOUT:
+                            Console.WriteLine("Hasta la próxima.");
+                            break;
                     }
                 }
             } while (option != LOGOUT);
-
         }
 
         public static void Catalog()
         {
+            List<Peliculas> catalogo = new List<Peliculas>();
+
             conexion.Open();
             cadena = "SELECT * FROM PELICULAS";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
-            while(registros.Read())
+            Console.WriteLine("----Película----");
+            while (registros.Read())
             {
-            Console.WriteLine(registros["NOMBRE"].ToString() + registros["DIRECTOR"].ToString());
-            } 
+                Peliculas p = new Peliculas();
+                catalogo.Add(p);
+                Console.WriteLine(registros["NOMBRE"].ToString());               
+            }
+            conexion.Close();
+            Console.WriteLine();
         }
 
+        public static void Rent()
+        {
 
+        }
 
+        public static void MyRentings()
+        {
+
+        }
+      
     }
 }

@@ -19,22 +19,14 @@ namespace Videoclub
         private string username;
         private string password;
         private string email;
+
+
         private long telephone;
 
-        public Cliente(string nombre, string apellido, DateTime fechaNac, string username, string password, string email, long telephone)
-        {
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.fechaNac = fechaNac;
-            this.username = username;
-            this.password = password;
-            this.email = email;
-            this.telephone = telephone;
-        }
         public Cliente()
         {
         }
-        public Cliente(string nombre, string apellido, DateTime fechaNac, string username, string password, string email, int telephone)
+        public Cliente(string nombre, string apellido, DateTime fechaNac, string username, string password, string email, long telephone)
         {
             this.nombre = nombre;
             this.apellido = apellido;
@@ -98,7 +90,7 @@ namespace Videoclub
         {
             this.email = email;
         }
-        public void SetTelephone(int telephone)
+        public void SetTelephone(long telephone)
         {
             this.telephone = telephone;
         }

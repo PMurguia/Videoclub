@@ -23,6 +23,8 @@ namespace Videoclub
         private string sinopsis;
         private bool alquilada;
 
+       
+
         public Peliculas()
         {
         }
@@ -33,7 +35,7 @@ namespace Videoclub
             this.director = director;
             this.publico = publico;
             this.sinopsis = sinopsis;
-            this.alquilada = alquilada;
+            this.alquilada = false;
         }
 
         public string GetNombre()
