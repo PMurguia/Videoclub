@@ -81,30 +81,35 @@ namespace Videoclub
 
         public static void Rent()
         {
-            List<Peliculas> libres = new List<Peliculas>();
+            //List<Peliculas> libres = new List<Peliculas>();
 
             conexion.Open();
-            cadena = "SELECT * FROM PELICULAS WHERE ALQUILADA = 'LIBRE'";
+            cadena = "SELECT * FROM PELICULAS WHERE ESTADO = 'LIBRE'";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
-            while(registros.Read())
+            while (registros.Read())
             {
-                Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITUTLO"].ToString());
-                Peliculas p = new Peliculas();
-                libres.Add(p);
+                Console.WriteLine(registros["MOVIE_ID"].ToString() + " " + registros["TITULO"].ToString() + "\nSinopsis: \n" + registros["SINOPSIS"].ToString());
+                Console.WriteLine();
+                //Peliculas p = new Peliculas();
+                //libres.Add(p);
             }
 
+            conexion.Close();
 
             Console.WriteLine("¿Qué película desea alquilar? ");
             int option = Int32.Parse(Console.ReadLine());
-          
+            
 
-
-
+            conexion.Open();
+            cadena = "UPDATE PELICULAS SET ESTADO = 'ALQUILADA' WHERE MOVIE_ID = '" + option + "'";
+            comando = new SqlCommand(cadena, conexion);
+            comando.ExecuteNonQuery();
+            conexion.Close();
+            Console.WriteLine("\nPelícula alquilada. Esperamos que la disfrute. ");
+           
 
         }
-
-
 
     }
 }

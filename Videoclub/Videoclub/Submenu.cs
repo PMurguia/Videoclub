@@ -38,7 +38,7 @@ namespace Videoclub
                             break;
 
                         case RENT:
-                            Rent();
+                            Alquiler.Rent();
                             break;
 
                         case MYRENTINGS:
@@ -61,7 +61,7 @@ namespace Videoclub
             conexion.Open();
 
             //Edad
-            cadena = "SELECT TITULO FROM PELICULAS WHERE (PUBLICO <'" +  + "' ;
+            cadena = "SELECT TITULO FROM PELICULAS";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
             Console.WriteLine("----Película----");
@@ -69,7 +69,7 @@ namespace Videoclub
             {
                 Peliculas p = new Peliculas();
                 catalogo.Add(p);
-                Console.WriteLine(registros["NOMBRE"].ToString());               
+                Console.WriteLine(registros["TITULO"].ToString());               
             }
             conexion.Close();
             Console.WriteLine();
@@ -78,12 +78,7 @@ namespace Videoclub
 
 
 
-        public static void Rent()
-        {
-            Console.WriteLine("¿Qué película quieres alquilar? ");
-
-
-        }
+       
 
         public static void MyRentings()
         {
