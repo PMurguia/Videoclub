@@ -89,6 +89,7 @@ namespace Videoclub
             registros = comando.ExecuteReader();
             while (registros.Read())
             {
+                
                 Console.WriteLine(registros["MOVIE_ID"].ToString() + " " + registros["TITULO"].ToString() + "\nSinopsis: \n" + registros["SINOPSIS"].ToString());
                 Console.WriteLine();
                 //Peliculas p = new Peliculas();

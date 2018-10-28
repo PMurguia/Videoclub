@@ -95,6 +95,11 @@ namespace Videoclub
 
         public static void Register()
         {
+            string email, password, username;
+            int numeric=0;
+            bool numeros = false;
+            
+            
             Console.WriteLine("Bienvenido al registro de nuevo usuario. Por favor, introduce los siguientes datos: ");
             Console.WriteLine("Nombre: ");
             string nombre = Console.ReadLine();
@@ -108,11 +113,31 @@ namespace Videoclub
             int yearNac = Int32.Parse(Console.ReadLine());
             DateTime fechaNac = new DateTime(yearNac, mesNac, diaNac);
             Console.WriteLine("Nombre de usuario: ");
-            string username = Console.ReadLine();
-            Console.WriteLine("Contraseña: ");
-            string password = Console.ReadLine();
-            Console.WriteLine("Email: ");
-            string email = Console.ReadLine();
+            username = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Contraseña: (La contraseña debe contener entre 6 y 8 carácteres y al menos un número. ");
+                password = Console.ReadLine();
+                if (password.Length >=6 && password.Length <=8)
+                {
+                    for (int i = 0; i < password.Length; i++)
+                    {
+                        if (char.IsDigit(password[i]))
+                        {
+                            numeric++;
+                            if (numeric >= 1)
+                            {
+                                numeros = true;
+                            }
+                        }
+                    }
+                }
+            } while (numeros == true);
+            do
+            {
+                Console.WriteLine("Email: ");
+                email = Console.ReadLine();
+            } while (!email.Contains("@") && (!email.Contains(".com") || !email.Contains(".es") || !email.Contains(".net") || !email.Contains(".org")));
             Console.WriteLine("Teléfono: ");
             long telephone = Int32.Parse(Console.ReadLine());
 
@@ -169,6 +194,12 @@ namespace Videoclub
             TimeSpan dAlive = today - bDate;
             return years = dAlive.Days / 365;
         }
+
+        //public static void MyRentings()
+        //{
+        //    conexion.Open();
+        //    cadena="SELECT "
+        //}
     }
 }
 

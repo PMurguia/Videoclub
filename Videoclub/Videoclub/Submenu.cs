@@ -42,7 +42,7 @@ namespace Videoclub
                             break;
 
                         case MYRENTINGS:
-                            MyRentings();
+                            Cliente.MyRentings();
                             break;
 
                         case LOGOUT:
@@ -65,25 +65,18 @@ namespace Videoclub
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
             Console.WriteLine("----Película----");
+            Console.WriteLine();
             while (registros.Read())
             {
                 Peliculas p = new Peliculas();
                 catalogo.Add(p);
-                Console.WriteLine(registros["TITULO"].ToString());               
+                Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITULO"].ToString());               
             }
             conexion.Close();
             Console.WriteLine();
         }
 
-
-
-
        
-
-        public static void MyRentings()
-        {
-
-        }
       
     }
 }
