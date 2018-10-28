@@ -136,6 +136,7 @@ namespace Videoclub
 
         public static void Login()
         {
+            
             string username, password;
 
             Console.WriteLine("Introduce el nombre de usuario: ");
@@ -144,7 +145,7 @@ namespace Videoclub
             password = Console.ReadLine();
 
             conexion.Open();
-            cadena = "SELECT NOMBRE_USUARIO FROM CLIENTE WHERE nombre_usuario LIKE '" + username + "' AND CONTRASENIA LIKE '" + password + "'";
+            cadena = "SELECT * FROM CLIENTE WHERE nombre_usuario LIKE '" + username + "' AND CONTRASENIA LIKE '" + password + "'";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
 
@@ -154,18 +155,19 @@ namespace Videoclub
             }
             else
             {
-               
+                Cliente c = new Cliente();
                 Submenu.LoginOptions();
             }
         }
 
-        public void Edad()
+        public int Edad()
         {
+
             int years;
             DateTime bDate = fechaNac;
             DateTime today = DateTime.Now;
             TimeSpan dAlive = today - bDate;
-            years = dAlive.Days / 365;
+            return years = dAlive.Days / 365;
         }
     }
 }

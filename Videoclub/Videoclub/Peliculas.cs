@@ -17,11 +17,12 @@ namespace Videoclub
         static SqlCommand comando;
         static SqlDataReader registros;
 
-        private string nombre;
+        private int movieId;
+        private string titulo;
         private string director;
-        private string publico;
+        private int publico;
         private string sinopsis;
-        private bool alquilada;
+        private string alquilada;
 
        
 
@@ -29,24 +30,29 @@ namespace Videoclub
         {
         }
 
-        public Peliculas(string nombre, string director, string publico, string sinopsis, bool alquilada)
+        public Peliculas(int movieId,string titulo, string director, int publico, string sinopsis, string alquilada)
         {
-            this.nombre = nombre;
+            this.movieId = movieId;
+            this.titulo=titulo;
             this.director = director;
             this.publico = publico;
             this.sinopsis = sinopsis;
-            this.alquilada = false;
+            this.alquilada = alquilada;
         }
 
-        public string GetNombre()
+        public int GetmovieId()
         {
-            return nombre;
+            return movieId;
+        }
+        public string GetTitulo()
+        {
+            return titulo;
         }
         public string GerDirector()
         {
             return director;
         }
-        public string GetPublico()
+        public int GetPublico()
         {
             return publico;
         }
@@ -54,12 +60,35 @@ namespace Videoclub
         {
             return sinopsis;
         }
-        public bool GetAlquilada()
+        public string GetAlquilada()
         {
             return alquilada;
         }
 
-       
+        public void SetMovieId(int movieId)
+        {
+            this.movieId = movieId;
+        }
+        public void SetTitulo(string titulo)
+        {
+            this.titulo = titulo;
+        }
+        public void SetDirector(string director)
+        {
+            this.director = director;
+        }
+        public void SetPublico(int publico)
+        {
+            this.publico = publico;
+        }
+        public void SetSinopsis(string sinopsis)
+        {
+            this.sinopsis = sinopsis;
+        }
+        public void SetAlquilada(string alquilada)
+        {
+            this.alquilada = alquilada;
+        }
 
 
 

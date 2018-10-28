@@ -41,16 +41,6 @@ namespace Videoclub
                 }
             } while (option != SALIR);
         }
-      
-        public static int Edad(string username)
-        {
-            
-            conexion.Open();
-            cadena = "SELECT FECHA_NACIMIENTO FROM CLIENTE WHERE USERNAME = '" + username + "'";
-            comando = new SqlCommand(cadena, conexion);
-            registros = comando.ExecuteReader();
-        }
 
-    
     }
 }

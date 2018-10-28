@@ -81,11 +81,27 @@ namespace Videoclub
 
         public static void Rent()
         {
-            Console.WriteLine("¿Qué película desea alquilar? ");
-            int option = Int32.Parse(Console.ReadLine());
+            List<Peliculas> libres = new List<Peliculas>();
 
             conexion.Open();
-            cadena="SELECT NOMBRE FROM PELICULAS WHERE ALQUILAD
+            cadena = "SELECT * FROM PELICULAS WHERE ALQUILADA = 'LIBRE'";
+            comando = new SqlCommand(cadena, conexion);
+            registros = comando.ExecuteReader();
+            while(registros.Read())
+            {
+                Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITUTLO"].ToString());
+                Peliculas p = new Peliculas();
+                libres.Add(p);
+            }
+
+
+            Console.WriteLine("¿Qué película desea alquilar? ");
+            int option = Int32.Parse(Console.ReadLine());
+          
+
+
+
+
         }
 
 

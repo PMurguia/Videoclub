@@ -55,12 +55,13 @@ namespace Videoclub
 
         public static void Catalog()
         {
+ 
             List<Peliculas> catalogo = new List<Peliculas>(); 
             
             conexion.Open();
 
             //Edad
-            cadena = "SELECT * FROM PELICULAS";
+            cadena = "SELECT TITULO FROM PELICULAS WHERE (PUBLICO <'" +  + "' ;
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
             Console.WriteLine("----Película----");
@@ -73,6 +74,9 @@ namespace Videoclub
             conexion.Close();
             Console.WriteLine();
         }
+
+
+
 
         public static void Rent()
         {
