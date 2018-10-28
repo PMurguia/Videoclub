@@ -16,7 +16,7 @@ namespace Videoclub
         static SqlCommand comando;
         static SqlDataReader registros;
 
-        public static void LoginOptions()
+        public static void LoginOptions(Cliente cliente)
         {
             conexion.Close();
             
@@ -53,7 +53,7 @@ namespace Videoclub
             } while (option != LOGOUT);
         }
 
-        public static void Catalog()
+        public static void Catalog(Cliente cliente)
         {
  
             List<Peliculas> catalogo = new List<Peliculas>(); 

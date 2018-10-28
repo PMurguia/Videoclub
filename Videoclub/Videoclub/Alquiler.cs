@@ -79,9 +79,10 @@ namespace Videoclub
             this.fechaDev = fechaDev;
         }
 
-        public static void Rent()
+        public static void Rent(Cliente cliente)
         {
-            //List<Peliculas> libres = new List<Peliculas>();
+            
+            List<Peliculas> libres = new List<Peliculas>();
 
             conexion.Open();
             cadena = "SELECT * FROM PELICULAS WHERE ESTADO = 'LIBRE'";
@@ -92,8 +93,8 @@ namespace Videoclub
                 
                 Console.WriteLine(registros["MOVIE_ID"].ToString() + " " + registros["TITULO"].ToString() + "\nSinopsis: \n" + registros["SINOPSIS"].ToString());
                 Console.WriteLine();
-                //Peliculas p = new Peliculas();
-                //libres.Add(p);
+                Peliculas p = new Peliculas();
+                libres.Add(p);
             }
 
             conexion.Close();
@@ -108,8 +109,12 @@ namespace Videoclub
             comando.ExecuteNonQuery();
             conexion.Close();
             Console.WriteLine("\nPelícula alquilada. Esperamos que la disfrute. ");
-           
 
+            conexion.Open();
+            cadena = " UPDATE ALQUILERES SET ESTADO = '" + DateTime.Today + "' WHERE ";
+            cadena = "INSERT INTO ALQUILERES VALUES ('" + option + ;
+
+            
         }
 
     }

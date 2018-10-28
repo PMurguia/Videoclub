@@ -132,7 +132,7 @@ namespace Videoclub
                         }
                     }
                 }
-            } while (numeros == true);
+            } while (numeros == false);
             do
             {
                 Console.WriteLine("Email: ");
@@ -180,12 +180,13 @@ namespace Videoclub
             }
             else
             {
-                Cliente c = new Cliente();
-                Submenu.LoginOptions();
+
+                Cliente cliente = new Cliente();
+                Submenu.LoginOptions(cliente);
             }
         }
 
-        public int Edad()
+        public int Edad(DateTime fechaNac)
         {
 
             int years;
