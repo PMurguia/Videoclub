@@ -169,28 +169,27 @@ namespace Videoclub
             Alquiler alquiler = new Alquiler();
             List<Alquiler> rent = new List<Alquiler>();
             conexion.Open();
-            cadena = "SELECT MOV_TITLE,RENT_DATE,RENT_DEV,RENT_EXPIRING FROM ALQUILERES WHERE USUARIO = '" + cliente.GetUsername() + "' AND RENT_DEV LIKE 'NULL'";
+            cadena = "SELECT MOV_ID,MOV_TITLE,RENT_DATE,RENT_DEV,RENT_EXPIRING FROM ALQUILERES WHERE USUARIO = '" + cliente.GetUsername() + "'";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
             Console.WriteLine("Información para el usuario: los alquileres en rojo son aquellos que tienen vencida la fecha de devoución de la película. Por favor, devuélvala a la mayor brevedad.");
             while (registros.Read())
             {
-                alquiler.SetPeliculaId(Int32.Parse(registros["MOV_ID"].ToString()));
-                alquiler.SetMovTitle(registros["MOV_TITLE"].ToString());
-                alquiler.SetFechaRent(DateTime.Parse(registros["RENT_DATE"].ToString()));
-                alquiler.SetFechaExpiring(DateTime.Parse(registros["DATE_EXPIRING"].ToString()));
-                alquiler.SetFechaDev(DateTime.Parse(registros["DATE_DEV"].ToString()));
-                rent.Add(alquiler);
-                if (alquiler.fechaExpiring < DateTime.Now)
+                if (alquiler.fechaExpiring > DateTime.Now)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["DATE_EXPIRING"].ToString());
+                    Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["RENT_EXPIRING"].ToString());
                     Console.ResetColor();
                 }
                 else
                 {
-                    Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["DATE_EXPIRING"].ToString());
+                    Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["RENT_EXPIRING"].ToString());
                 }
+                alquiler.SetPeliculaId(Int32.Parse(registros["MOV_ID"].ToString()));
+                alquiler.SetMovTitle(registros["MOV_TITLE"].ToString());
+                alquiler.SetFechaRent(DateTime.Parse(registros["RENT_DATE"].ToString()));
+                alquiler.SetFechaExpiring(DateTime.Parse(registros["RENT_EXPIRING"].ToString()));
+                rent.Add(alquiler);
             }
             conexion.Close();
 
@@ -231,7 +230,7 @@ namespace Videoclub
             Console.WriteLine("¿Qué película desea devolver? ");
             int idPelicula = Int32.Parse(Console.ReadLine());
             conexion.Open();
-            cadena = "INSERT INTO ALQUILERES (DATE_DEV) VALUES ('" + DateTime.Now + "') WHERE MOV_ID = '" + idPelicula + "'";
+            cadena = "UPDATE ALQUILERES SET RENT_DEV= '" + DateTime.Now + "' WHERE MOV_ID = '" + idPelicula + "'";
             comando = new SqlCommand(cadena, conexion);
             comando.ExecuteNonQuery();
             conexion.Close();
@@ -243,9 +242,5 @@ namespace Videoclub
             conexion.Close();
         }
 
-        public static void PeliculaADevolver()
-        {
-
-        }
     }
 }
