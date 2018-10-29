@@ -175,7 +175,12 @@ namespace Videoclub
             Console.WriteLine("Información para el usuario: los alquileres en rojo son aquellos que tienen vencida la fecha de devoución de la película. Por favor, devuélvala a la mayor brevedad.");
             while (registros.Read())
             {
-                if (alquiler.fechaExpiring > DateTime.Now)
+                alquiler.SetPeliculaId(Int32.Parse(registros["MOV_ID"].ToString()));
+                alquiler.SetMovTitle(registros["MOV_TITLE"].ToString());
+                alquiler.SetFechaRent(DateTime.Parse(registros["RENT_DATE"].ToString()));
+                alquiler.SetFechaExpiring(DateTime.Parse(registros["RENT_EXPIRING"].ToString()));
+                rent.Add(alquiler);
+                if (alquiler.fechaExpiring < DateTime.Now)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["RENT_EXPIRING"].ToString());
@@ -185,11 +190,6 @@ namespace Videoclub
                 {
                     Console.WriteLine(registros["MOV_ID"].ToString() + " " + registros["MOV_TITLE"].ToString() + " " + registros["RENT_DATE"].ToString() + " " + registros["RENT_EXPIRING"].ToString());
                 }
-                alquiler.SetPeliculaId(Int32.Parse(registros["MOV_ID"].ToString()));
-                alquiler.SetMovTitle(registros["MOV_TITLE"].ToString());
-                alquiler.SetFechaRent(DateTime.Parse(registros["RENT_DATE"].ToString()));
-                alquiler.SetFechaExpiring(DateTime.Parse(registros["RENT_EXPIRING"].ToString()));
-                rent.Add(alquiler);
             }
             conexion.Close();
 
