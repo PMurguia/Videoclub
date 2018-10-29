@@ -140,11 +140,14 @@ namespace Videoclub
             } while (!email.Contains("@") && (!email.Contains(".com") || !email.Contains(".es") || !email.Contains(".net") || !email.Contains(".org")));
             Console.WriteLine("Teléfono: ");
             long telephone = Int32.Parse(Console.ReadLine());
+            Console.WriteLine("\n\nGracias por registrarse. A continuación podrá acceder al menu de usuarios.\n ");
+
+
 
             //Esto es el objeto cliente
-            Cliente c = new Cliente(nombre, apellido, fechaNac, username, password, email, telephone);
-            c.Insert();
-            
+            Cliente cliente = new Cliente(nombre, apellido, fechaNac, username, password, email, telephone);
+            cliente.Insert();
+            Submenu.LoginOptions(cliente);
 
 
         }
@@ -180,13 +183,19 @@ namespace Videoclub
             }
             else
             {
-
                 Cliente cliente = new Cliente();
+                cliente.SetNombre(registros["NOMBRE"].ToString());
+                cliente.SetApellido(registros["APELLIDOS"].ToString());
+                cliente.SetFechaNac(DateTime.Parse(registros["FECHA_NACIMIENTO"].ToString()));
+                cliente.SetUsername(registros["NOMBRE_USUARIO"].ToString());
+                cliente.SetPassword(registros["CONTRASENIA"].ToString());
+                cliente.SetEmail(registros["EMAIL"].ToString());
+                cliente.SetTelephone(Int64.Parse(registros["TELEFONO"].ToString()));
                 Submenu.LoginOptions(cliente);
             }
         }
 
-        public int Edad(DateTime fechaNac)
+        public int Edad()
         {
 
             int years;
@@ -196,11 +205,7 @@ namespace Videoclub
             return years = dAlive.Days / 365;
         }
 
-        //public static void MyRentings()
-        //{
-        //    conexion.Open();
-        //    cadena="SELECT "
-        //}
+       
     }
 }
 

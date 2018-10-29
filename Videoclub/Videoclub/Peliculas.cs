@@ -87,10 +87,10 @@ namespace Videoclub
         }
         public void SetAlquilada(string alquilada)
         {
-            this.alquilada = alquilada;
+            this.alquilada=alquilada;
         }
 
-
+        
 
     }
 }

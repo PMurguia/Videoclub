@@ -19,7 +19,6 @@ namespace Videoclub
         static void Main(string[] args)
         {
             Menu.FirstMenu();
-            Console.ReadLine();
         }
     }
 }

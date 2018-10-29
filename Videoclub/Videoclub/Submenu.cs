@@ -19,9 +19,9 @@ namespace Videoclub
         public static void LoginOptions(Cliente cliente)
         {
             conexion.Close();
-            
 
             int option;
+            cliente.Edad();
             const int CATALOG = 1, RENT = 2, MYRENTINGS = 3, LOGOUT = 4;
 
             do
@@ -34,15 +34,15 @@ namespace Videoclub
                     switch (option)
                     {
                         case CATALOG:
-                            Catalog();
+                            Catalog(cliente);
                             break;
 
                         case RENT:
-                            Alquiler.Rent();
+                            Alquiler.Rent(cliente);
                             break;
 
                         case MYRENTINGS:
-                            Cliente.MyRentings();
+                            Alquiler.MyRentings(cliente);
                             break;
 
                         case LOGOUT:
@@ -55,28 +55,34 @@ namespace Videoclub
 
         public static void Catalog(Cliente cliente)
         {
- 
-            List<Peliculas> catalogo = new List<Peliculas>(); 
-            
+
             conexion.Open();
 
-            //Edad
-            cadena = "SELECT TITULO FROM PELICULAS";
+
+            cadena = "SELECT * FROM PELICULAS WHERE PUBLICO <= '" + cliente.Edad() + "'";
             comando = new SqlCommand(cadena, conexion);
             registros = comando.ExecuteReader();
             Console.WriteLine("----Película----");
             Console.WriteLine();
             while (registros.Read())
             {
-                Peliculas p = new Peliculas();
-                catalogo.Add(p);
-                Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITULO"].ToString());               
+                if (registros["ESTADO"].ToString() == "ALQUILADA")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITULO"].ToString());
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.WriteLine(registros["MOVIE_ID"].ToString() + "\t" + registros["TITULO"].ToString());
+                }
+           
             }
             conexion.Close();
             Console.WriteLine();
         }
 
-       
-      
+
+
     }
 }
