@@ -26,6 +26,8 @@ namespace Videoclub
 
             do
             {
+                Console.WriteLine();
+                Console.WriteLine("Bienvenido " + cliente.GetUsername());
                 Console.WriteLine("¿Qué desea hacer?\n1. Ver películas disponibles\n2. Alquilar una película\n3. Mis alquileres\n4. Logout");
                 option = Int32.Parse(Console.ReadLine());
 

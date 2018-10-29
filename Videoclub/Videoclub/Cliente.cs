@@ -96,10 +96,12 @@ namespace Videoclub
         public static void Register()
         {
             string email, password, username;
-            int numeric=0;
+            int numeric = 0;
             bool numeros = false;
-            
-            
+            bool nombreUsuario = false;
+            bool correo = false;
+
+
             Console.WriteLine("Bienvenido al registro de nuevo usuario. Por favor, introduce los siguientes datos: ");
             Console.WriteLine("Nombre: ");
             string nombre = Console.ReadLine();
@@ -112,13 +114,31 @@ namespace Videoclub
             Console.WriteLine("Año de nacimiento: ");
             int yearNac = Int32.Parse(Console.ReadLine());
             DateTime fechaNac = new DateTime(yearNac, mesNac, diaNac);
-            Console.WriteLine("Nombre de usuario: ");
-            username = Console.ReadLine();
             do
             {
-                Console.WriteLine("Contraseña: (La contraseña debe contener entre 6 y 8 carácteres y al menos un número. ");
+                Console.WriteLine("Nombre de usuario: ");
+                username = Console.ReadLine();
+                conexion.Open();
+                cadena = "SELECT NOMBRE_USUARIO FROM CLIENTE WHERE NOMBRE_USUARIO = '" + username + "'";
+                comando = new SqlCommand(cadena, conexion);
+                registros = comando.ExecuteReader();
+                if(registros.Read())
+                {
+                    Console.WriteLine("Nombre de usuario en uso. Por favor, introduzca otro nombre de usuario. ");
+                    nombreUsuario = false;
+                }
+                else
+                {
+                    nombreUsuario = true;
+                }
+
+                conexion.Close();
+            } while (nombreUsuario==false);
+            do
+            {
+                Console.WriteLine("Contraseña: (La contraseña debe contener entre 6 y 8 carácteres y al menos un número.) ");
                 password = Console.ReadLine();
-                if (password.Length >=6 && password.Length <=8)
+                if (password.Length >= 6 && password.Length <= 8)
                 {
                     for (int i = 0; i < password.Length; i++)
                     {
@@ -137,19 +157,29 @@ namespace Videoclub
             {
                 Console.WriteLine("Email: ");
                 email = Console.ReadLine();
-            } while (!email.Contains("@") && (!email.Contains(".com") || !email.Contains(".es") || !email.Contains(".net") || !email.Contains(".org")));
+                conexion.Open();
+                cadena = "SELECT EMAIL FROM CLIENTE WHERE EMAIL = '" + email + "'";
+                comando = new SqlCommand(cadena, conexion);
+                registros = comando.ExecuteReader();
+                if (registros.Read())
+                {
+                    Console.WriteLine("Email ya registrado. Por favor, introduzca email válido. ");
+                    correo = false;
+                }
+                else
+                {
+                    correo = true;
+                }
+                conexion.Close();
+            } while (!correo || !email.Contains("@") && (!email.Contains(".com") || !email.Contains(".es") || !email.Contains(".net") || !email.Contains(".org")));
             Console.WriteLine("Teléfono: ");
             long telephone = Int32.Parse(Console.ReadLine());
             Console.WriteLine("\n\nGracias por registrarse. A continuación podrá acceder al menu de usuarios.\n ");
-
-
 
             //Esto es el objeto cliente
             Cliente cliente = new Cliente(nombre, apellido, fechaNac, username, password, email, telephone);
             cliente.Insert();
             Submenu.LoginOptions(cliente);
-
-
         }
 
         public void Insert()
@@ -164,7 +194,7 @@ namespace Videoclub
 
         public static void Login()
         {
-            
+
             string username, password;
 
             Console.WriteLine("Introduce el nombre de usuario: ");
@@ -193,6 +223,7 @@ namespace Videoclub
                 cliente.SetTelephone(Int64.Parse(registros["TELEFONO"].ToString()));
                 Submenu.LoginOptions(cliente);
             }
+            conexion.Close();
         }
 
         public int Edad()
@@ -205,8 +236,8 @@ namespace Videoclub
             return years = dAlive.Days / 365;
         }
 
-       
+
     }
 }
 
-    
+

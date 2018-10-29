@@ -167,7 +167,6 @@ namespace Videoclub
         public static void MyRentings(Cliente cliente)
         {
             Alquiler alquiler = new Alquiler();
-            List<Alquiler> rent = new List<Alquiler>();
             conexion.Open();
             cadena = "SELECT MOV_ID,MOV_TITLE,RENT_DATE,RENT_DEV,RENT_EXPIRING FROM ALQUILERES WHERE USUARIO = '" + cliente.GetUsername() + "'";
             comando = new SqlCommand(cadena, conexion);
@@ -179,7 +178,6 @@ namespace Videoclub
                 alquiler.SetMovTitle(registros["MOV_TITLE"].ToString());
                 alquiler.SetFechaRent(DateTime.Parse(registros["RENT_DATE"].ToString()));
                 alquiler.SetFechaExpiring(DateTime.Parse(registros["RENT_EXPIRING"].ToString()));
-                rent.Add(alquiler);
                 if (alquiler.fechaExpiring < DateTime.Now)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;

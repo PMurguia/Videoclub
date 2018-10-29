@@ -89,8 +89,5 @@ namespace Videoclub
         {
             this.alquilada=alquilada;
         }
-
-        
-
     }
 }
